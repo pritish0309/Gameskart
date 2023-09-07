@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import styles from '../styles/Navbar.module.css';
-const Navbar = () => {
+
+const Navbar = (props) => {
 
   // Selecting cart from global state
   const cart = useSelector((state) => state.cart);
@@ -10,7 +11,8 @@ const Navbar = () => {
   const getItemsCount = () => {
     return cart.reduce((accumulator, item) => accumulator + item.quantity, 0);
   };
-
+  var cookiesExists = props.cookieValue;
+  
   return (
     <nav className={styles.navbar}>
       <h6 className={styles.logo}><Link href="/">Gamerkart</Link></h6>

@@ -7,12 +7,13 @@ import {
   removeFromCart,
 } from '../redux/cart.slice';
 import styles from '../styles/cartpage.module.css';
+import Head from 'next/head';
+import { IconName } from "react-icons/bi";
 
 const CartPage = () => {
 
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-
   const getTotalPrice = () => {
     return cart.reduce(
       (accumulator, item) => accumulator + item.quantity * item.price,
@@ -22,6 +23,10 @@ const CartPage = () => {
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>GamerKart CartPage</title>
+        <meta name="description" content="Meta description for the Cart page" />
+      </Head>
       {cart.length === 0 ? (
         <h1>Your Cart is Empty!</h1>
       ) : (
