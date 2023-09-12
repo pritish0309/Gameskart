@@ -23,13 +23,15 @@ const RegistrationForm = () =>{
         event.preventDefault();
         if (cookiesValue == undefined) {
             Cookies.set('IsLoggedIn', formData.username, {expires : 7});
+            Cookies.set('userData', JSON.stringify(formData).replace(" ",''), {expires : 7});
             console.log('Cookie Create');
+            console.log(formData);
         }
         router.push('/login');
     }
 
     return(
-        <div className={styles.registration_container}>
+      <div className={styles.registration_container}>
       <h2>Register</h2>
       <form className={styles.registration_form} onSubmit={handleSubmit} id="register_form">
         <div className={styles.form_group}>

@@ -1,6 +1,10 @@
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import styles from '../styles/Navbar.module.css';
+import { useState, useEffect } from "react";
+import  Cookies from "js-cookie";
+
+
 
 const Navbar = (props) => {
 
@@ -11,24 +15,34 @@ const Navbar = (props) => {
   const getItemsCount = () => {
     return cart.reduce((accumulator, item) => accumulator + item.quantity, 0);
   };
-  var cookiesExists = props.cookieValue;
+  const [cookiesExist, setCookies] = useState('');
+
+  useEffect(() => {
+    setCookies(Cookies.get('loggedIn'));
+  }, [])
   
   return (
     <nav className={styles.navbar}>
       <h6 className={styles.logo}><Link href="/">Gamerkart</Link></h6>
-      <ul className={styles.links}>
-        <li className={styles.navlink}>
-          <Link href="/">Home</Link>
-        </li>
-        <li className={styles.navlink}>
-          <Link href="/shop">Shop</Link>
-        </li>
-        <li className={styles.navlink}>
-          <Link href="/cart">
-            <p>Cart ({getItemsCount()})</p>
-          </Link>
-        </li>
-      </ul>
+      {cookiesExist ? 
+        <ul className={styles.links}>
+          <li className={styles.navlink}>
+            <Link href="/">Home</Link>
+          </li>
+          <li className={styles.navlink}>
+            <Link href="/shop">Shop</Link>
+          </li>
+          <li className={styles.navlink}>
+            <Link href="/cart">
+              <p>Cart ({getItemsCount()})</p>
+            </Link>
+          </li>
+          <li className={styles.navlink}>
+          <Link href="/shop">{cookiesExist}</Link>
+          </li>
+      </ul> : ''
+      }
+      
     </nav>
   );
 };

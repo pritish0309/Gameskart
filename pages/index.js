@@ -30,27 +30,26 @@ const imageDetails = [
 ]
 
 const HomePage = () => {
-  if (typeof window !== undefined) {
-    var cookiesExist = Cookies.get('IsLoggedIn');
-  }
-  const [mounted, setMounted] = useState(false);
+
+  const [cookiesExist, setCookies] = useState('');
+  
   useEffect(() => {
-      setMounted(true)
+    setCookies(Cookies.get('IsLoggedIn'));
   }, [])
+  
+
   return (
     <main className={styles.container}>
-      {/* <Head>
+      <Head>
         <title>GamerKart HomePage</title>
         <meta name="description" content="Meta description for the Home page" />
-      </Head> */}
+      </Head>
       {
-        mounted ? 
         cookiesExist ? <div className={styles.card_box}>
         {imageDetails.map((items,index)=>{
           return <CategoryCard image={items.imageUrl} name={items.imageName} alt={items.imageAlt} key={index}/>
         })}
         </div> : <RegistrationForm /> 
-        :'' 
       }
     </main>
   );
